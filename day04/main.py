@@ -49,7 +49,8 @@ def readBoard(lines: list)->list:
         vals[x] = list(map(int, re.findall(r'\d+',lines[x])))
     return vals
 
-
+import time
+start_time = time.time()
 with open("day04/input.txt") as f:
     lines = [line.rstrip() for line in f]
 
@@ -68,7 +69,10 @@ with open("day04/input.txt") as f:
     for i in range(len(bingos)):
         chkVal = bingos.pop(0)
         for brd in range(maxbrd):
-            boards[brd].checkVal(chkVal)         
-            if (boards[brd].haswon == 0 and boards[brd].checkWinner()):
-                val = boards[brd].calcUnmarked()
-                print(f"board {brd} winner, chkVal = {chkVal}, val = {val}, score = {val*chkVal}")
+            if (boards[brd].haswon == 0):
+                boards[brd].checkVal(chkVal)         
+                if boards[brd].checkWinner():
+                    val = boards[brd].calcUnmarked()
+                    print(f"board {brd} winner, chkVal = {chkVal}, val = {val}, score = {val*chkVal}")
+
+print("Process finished --- %s seconds ---" % (time.time() - start_time))
