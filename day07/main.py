@@ -6,9 +6,8 @@ from collections import Counter
 
 
 def fuelCount(base, pos, crabs=1):
-    minC = min(base, pos)
-    maxC = max(base, pos) + 1
-    fc = sum([i - minC for i in range(minC, maxC)])
+    d = abs(base - pos)
+    fc = int((d * (d + 1)) / 2)
     fc *= crabs
     return fc
 
