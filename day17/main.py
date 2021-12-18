@@ -41,13 +41,13 @@ def tests(area):
 
 def getMaxY(point, area, xvel, yvel):
     maxY = 0
-    while missedArea(point, area) is False:
+    while not missedArea(point, area):
         point, xvel, yvel = step(point, area, xvel, yvel)
         if point[1] > maxY:
             maxY = point[1]
         if within(point, area):
             return maxY
-    return 0
+    return -1
 
 
 def doIt(filename: str) -> None:
@@ -66,16 +66,21 @@ def doIt(filename: str) -> None:
         area = []
         area.append(x)
         area.append(y)
+        xmin = x[0]
+        xmax = x[1]
+        ymin = y[1]
+        ymax = y[0]
+
 
         maxY = 0
         numv = 0
-        for xvel in range(-67, 200):
-            for yvel in range(-67, 200):
+        for xvel in range(1, xmax * 2):
+            for yvel in range(ymin, xmax):
                 point = [0, 0]
                 tmp = getMaxY(point, area, xvel, yvel)
                 if tmp > maxY:
                     maxY = tmp
-                if tmp != 0:
+                if tmp >= 0:
                     numv += 1
         print(maxY)
         print(numv)
